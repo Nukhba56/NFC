@@ -1,0 +1,43 @@
+
+
+
+<div class="container">
+
+  <!-- Card -->
+  <div class="card">
+
+      <!-- Profile Image -->
+      <div class="profile">
+          <img [src]="user.profileImage" alt="Profile">
+          <!-- <fa-icon class="user"  [icon]="faUser"></fa-icon> -->
+
+      </div>
+
+      <!-- User Info -->
+      <h2 class="name">{{ user.name }}</h2>
+      <p class="location"> {{ user.location }}</p>
+      <p class="job-title">{{ user.jobTitle }}</p>
+
+      <!-- Action Buttons -->
+      <div class="buttons">
+          <a *ngFor="let button of buttons" class="button" [ngStyle]="{'background': button.color}">
+            <fa-icon  [icon]="buttonMaps[button.icon]"></fa-icon> {{button.label}}
+          </a>
+      </div>
+
+      <!-- Social Media Links -->
+      <div class="social-icon"  >
+        <a  *ngFor="let link of socialLinks"  [ngStyle]="{'color': link.color}" [href]="link.url" target="_blank" >
+          <fa-icon  [icon]="iconMap[link.name]"  ></fa-icon>
+        </a>
+      </div>
+
+      <!-- Footer -->
+      <p class="footer">
+          Powered by
+          <a href="https://www.armortechtrading.com/" class="order-link">Armortech trading</a>
+      </p>
+
+  </div>
+
+</div>
