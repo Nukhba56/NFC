@@ -20,14 +20,16 @@
 
       <!-- Action Buttons -->
       <div class="buttons">
-          <a *ngFor="let button of buttons" class="button" [ngStyle]="{'background': button.color}">
+          <a *ngFor="let button of buttons" class="button" [ngStyle]="{'background': button.color}"
+         (click)="handleButtonClick(button.functionName)">
             <fa-icon  [icon]="buttonMaps[button.icon]"></fa-icon> {{button.label}}
           </a>
       </div>
 
       <!-- Social Media Links -->
       <div class="social-icon"  >
-        <a  *ngFor="let link of socialLinks"  [ngStyle]="{'color': link.color}" [href]="link.url" target="_blank" >
+        <a  *ngFor="let link of socialLinks"  [ngStyle]="{'color': link.color}"
+         [href]="link.url" target="_blank" >
           <fa-icon  [icon]="iconMap[link.name]"  ></fa-icon>
         </a>
       </div>

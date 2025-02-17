@@ -38,15 +38,82 @@ export class NfcPageComponent {
     name: 'Armor Tech',
     location: 'Dubai, United Arab Emirates',
     jobTitle: 'Software Engineer at Codemaze Pvt Ltd',
-    profileImage: '/public/images/armorTech.jpeg',
+    profileImage: '/images/armorTech.jpeg',
   };
 
   buttons = [
-    { label: 'Add to contact',  icon:'addressBook', color:' #1877F2'    },
-    { label: 'WhatsApp', icon:'whatsapp',  color: ' #25D366' },
-    { label: 'Email', icon:'envelope',  color:'  #D14836'  },
-    { label: 'Call', icon:'phone',  color: ' #1DA1F2' }
+    { label: 'Add to contact',  icon:'addressBook', color:' #1877F2' , functionName: 'downloadVCard'   },
+    { label: 'WhatsApp', icon:'whatsapp',  color: ' #25D366' , functionName: 'openWhatsApp'  },
+    { label: 'Email', icon:'envelope',  color:'  #D14836' , functionName: 'openEmail'   },
+    { label: 'Call', icon:'phone',  color: ' #1DA1F2' , functionName: 'makeCall'  }
   ];
+
+
+  //link the functionality behind the button
+  handleButtonClick(functionName: string){
+
+    const functionMap: Record<string , () => void> = {
+
+      downloadVCard: this.downloadVCard.bind(this),
+      openWhatsApp: this.openWhatsApp.bind(this),
+    openEmail: this.openEmail.bind(this),
+    makeCall: this.makeCall.bind(this)
+
+    }
+    if(functionMap[functionName]){
+      functionMap[functionName]();
+    }
+
+  }
+
+
+  openWhatsApp(){
+
+    const phoneNumber = '971585189787';
+    const msg = encodeURIComponent('+971 585 18 9787');
+    const url = (`https://wa.me/${phoneNumber}?text=${msg}`)
+
+    window.open(url, '_blank');
+
+  }
+  openEmail(){
+
+    const email = 'armortechtrading@gmail.com';
+    const subject = encodeURIComponent('Hello');
+    const body = encodeURIComponent('Hello');
+    const url = `mailto:${email}?subject=${subject}&body=${body}`;
+
+    window.location.href = url;
+
+  }
+  makeCall(){
+
+    const phoneNumber = '+971585189787';
+    const url = `tel:${phoneNumber}`
+    window.location.href = url;
+
+  }
+
+  downloadVCard(){
+
+    const csvData = `BEGIN:VCARD
+VERSION:3.0
+FN:John Doe
+TEL;TYPE=CELL:038872772828
+EMAIL:example@gmail.com
+END:VCARD`;
+
+const blob =  new Blob ([csvData] , {type: 'text/vcard'});
+const url = window.URL.createObjectURL(blob);
+
+const a = document.createElement('a');
+a.href = url;
+a.download = 'contact.vcf';
+document.body.appendChild(a);
+a.click();
+document.body.removeChild(a);
+
+  }
 
   //dynamic data of icons
   socialLinks = [
